@@ -1,0 +1,127 @@
+{{> header}}
+
+<body>
+
+{{> menu }}
+
+<main role="main">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron" id="titulo">
+        <div class="container ">
+            <h1 class="display-7">Dados para o envio</h1>
+        </div>
+    </div>
+
+    <form method="post" id="dadosDeConfiguracaoDeEnvio" name="dadosDeConfiguracaoDeEnvio">
+
+        <div class="container">
+            <!-- Example row of columns -->
+
+            {{#dados-envio}}
+            <div class="form-group">
+                <label for="nome">Nome : </label>
+                <input type="text" class="form-control" name="nome" id="nome" value="{{#nome}}{{.}}{{/nome}}">
+            </div>
+
+            <div class="form-group">
+                <label for="cpf">CPF *: </label>
+                <input type="text" class="form-control" name="CPF" id="CPF" value="{{#CPF}}{{.}}{{/CPF}}">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email : </label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="seuemail@gmail.com"
+                       value="{{#email}}{{.}}{{/email}}">
+            </div>
+
+            <div class="form-group">
+                <label for="smtp">smtp *: </label>
+                <input type="text" class="form-control" name="smtp" id="smtp" placeholder="Nome do Servidor SMTP usado"
+                       value="{{#smtp}}{{.}}{{/smtp}}">
+            </div>
+
+            <div class="form-group">
+                <label for="smtpPort">Porta smtp *: </label>
+                <input type="number" class="form-control" name="smtpPort" id="smtpPort" placeholder="Número da porta SMTP"
+                       value="{{#smtpPort}}{{.}}{{/smtpPort}}">
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="comAutenticacao" id="comAutenticacao"
+                       {{#comAutenticacao}}checked{{/comAutenticacao}}>
+                <label class="form-check-label" for="comAutenticacao">Usa Autenticação</label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="usaSsl" id="usaSsl"
+                       {{#usaSsl}}checked{{/usaSsl}}>
+                <label class="form-check-label" for="UsaSsl">Usa SSL</label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="tlsHabilitado" id="tlsHabilitado"
+                       {{#tlsHabilitado}}checked{{/tlsHabilitado}}>
+                <label class="form-check-label" for="tlsHabilitado">TLS Habilitado</label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="tlsRequerido" id="tlsRequerido"
+                       {{#tlsRequerido}}checked{{/tlsRequerido}}>
+                <label class="form-check-label" for="tlsRequerido">TLS Requerido</label>
+            </div>
+
+            <div class="form-group">
+                <label for="intervalo">Intervalo usado durante o envio: (ms) </label>
+                <input type="number" class="form-control" name="intervalo" id="intervalo" placeholder="Tempo entre o envio e outro email (para não ser confundido com Span. Padrão 500ms (0,5 segundos)"
+                       value="{{#intervalo}}{{.}}{{/intervalo}}">
+            </div>
+
+
+            <br>
+
+
+            {{/dados-envio}}
+            <button type="submit" class="btn btn-primary">Gravar</button>
+            <button type="reset" class="btn btn-primary">Cancelar</button>
+
+        </div>
+    </form>
+
+    <hr>
+
+</main>
+
+{{> tail }}
+
+</body>
+
+<script>
+
+    function verificaSeGmail(){
+        var strEmail = $("#email").val();
+        var strGmail = "@gmail.com".toUpperCase();
+        return  ( Right(strEmail, strGmail.length).toUpperCase() == strGmail );
+    }
+
+    $( document ).ready(function() {
+
+        $("#email").focusout(function(){
+            // $(this).css("background-color", "#FFFFFF");
+
+            if (verificaSeGmail()){
+                $("#smtp").val( "smtp.gmail.com");
+                $("#smtpPort").val( "465");
+                $("#intervalo").val( "500");
+                $( "#usaSsl" ).prop( "checked", true );
+                $( "#comAutenticacao" ).prop( "checked", true );
+                $( "#tlsHabilitado" ).prop( "checked", true );
+                $( "#tlsRequerido" ).prop( "checked", false );
+            }
+
+
+        });
+        // Handler for .ready() called.
+    });
+</script>
+
+</html>

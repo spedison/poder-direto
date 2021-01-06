@@ -1,0 +1,54 @@
+{{> header}}
+
+<body>
+
+{{> menu }}
+
+<main role="main">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron" id="titulo">
+        <div class="container ">
+            <h1 class="display-7">Progresso do envio de e-mail</h1>
+        </div>
+    </div>
+
+    <form method="post" id="dadosDeConfiguracaoDeEnvio" name="dadosDeConfiguracaoDeEnvio" action="/envio-email/next">
+
+        <div class="form-group container">
+            <div class="form-group">
+                <label class="form-control">Percentual Atual do envio : {{percentual}}%</label>
+                <label class="form-control">Enviados   : {{enviados}}</label>
+                <label class="form-control">Quantidade : {{quantidade}}</label>
+            </div>
+            <div class="progress">
+                <div class="progress-bar" role="progressbar bg-info" style="width: {{percentual}}%;" aria-valuenow="{{percentual}}" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+
+            {{^repete}}
+                <h4>Processamento terminado</h4>
+            {{/repete}}
+
+        </div>
+
+        <script>
+            var timeout_var;
+
+            function submit_time(){
+                if ({{percentual}} != 100)
+                    document.getElementById("dadosDeConfiguracaoDeEnvio").submit();
+                clearTimeout(timeout_var);
+            }
+
+            timeout_var = setTimeout(submit_time, 1000);
+        </script>
+    </form>
+
+    <hr>
+
+</main>
+
+{{> tail }}
+
+</body>
+
+</html>

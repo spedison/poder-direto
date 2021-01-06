@@ -1,0 +1,24 @@
+/*body {
+    padding-bottom: 40px;
+    padding-top: 40px;
+}*/
+/*
+.navbar {
+    margin-bottom: 40px;
+    margin-top: 0px;
+    height: 40px;
+}*/
+
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
+body {
+    padding-top: 3.5rem;
+}
+
+#titulo{
+    margin-bottom: 0px;
+    margin-top: 0px;
+
+    padding-bottom: 7px;
+    padding-top: 7px;
+
+}

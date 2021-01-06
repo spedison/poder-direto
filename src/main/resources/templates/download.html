@@ -1,0 +1,45 @@
+{{> header}}
+
+<body>
+
+{{> menu }}
+
+
+<main role="main">
+
+    <div class="jumbotron" id="titulo">
+        <div class="container ">
+            <h1 class="display-7">Resultado do Download</h1>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-12">
+                {{#sucesso}}
+                <p><strong>O download foi feito com sucesso .</strong></p>
+                {{/sucesso}}
+                <p><strong>Mensagens do processo : </strong></p>
+                {{#mensagens}}
+                    <p>{{.}}</p>
+                {{/mensagens}}
+            </div>
+        </div>
+
+        <hr>
+
+    </div> <!-- /container -->
+
+</main>
+
+{{> tail }}
+
+<script>
+    CKEDITOR.replace('conteudo');
+</script>
+
+</body>
+
+</html>

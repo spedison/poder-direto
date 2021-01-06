@@ -1,0 +1,82 @@
+{{> header}}
+
+<body>
+
+{{> menu }}
+
+
+<main role="main">
+
+    <div class="jumbotron" id="titulo">
+        <div class="container ">
+            <h1 class="display-7">Adicionar/Alterar um Template</h1>
+        </div>
+    </div>
+
+
+    <form name="template" id="template" method="post" action="/templates/add">
+
+        <div class="container">
+            {{#template}}
+            <input type="hidden" class="form-control" id="id" name="id" value="{{id}}">
+            <input type="hidden" class="form-control" id="fileName" name="fileName" value="{{fileName}}">
+
+            <div class="form-group">
+                <label for="nome">Nome Modelo</label>
+                <input type="text" class="form-control" id="nome" name="nome" value="{{nome}}">
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Assunto do Email</label>
+                <input type="text" class="form-control" id="subject" name="subject" value="{{subject}}">
+            </div>
+
+            <div class="form-group">
+                <label for="conteudo">Texto de template</label>
+                <textarea name="conteudo" id="conteudo">{{conteudo}}</textarea>
+            </div>
+            {{/template}}
+            <button type="submit" class="btn btn-primary">Gravar</button>
+            <a class="btn btn-primary" href="/templates/">Cancelar</a>
+
+        </div>
+    </form>
+
+    <br/>
+
+    <div class="container">
+        <div class="jumbotron" id="titulo">
+            <div class="container rounded">
+                <h2 class="display-7">Variáveis disponíveis para montagem do template</h2>
+            </div>
+        </div>
+
+        <br/>
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr><th>Nome da Variável </th><th>Significado</th><th>Modo de usar</th></tr>
+            </thead>
+            <tbody>
+                {{#helpVars}}
+                    <tr><td>{{nome}} </td><td>{{descricao}}</td><td>{{modoDeUsar}}</td></tr>
+                {{/helpVars}}
+            </tbody>
+        </table>
+        <p>A forma de utilizar a variável é simples.</p>
+        <p>No texto, use <stromg>&#123;{nome da variável}}</stromg>, como por exemplo: <strong>&#123;{meuNome}}</strong>. </p>
+        <p>Se você deseja usar trechos com as variávels do tipo Verdadeiro/Falso, pode usar <strong>&#123;{#Nome Var}}Vai aparecer se positivo &#123;{/Nome Var}}</strong> ou se quer que apareça se for negativo use <strong>&#123;{^Nome Var}}&#123;{/Nome Var}}</strong>.</p>
+    </div>
+
+    <hr>
+</main>
+
+{{> tail }}
+
+<script>
+    CKEDITOR.replace('conteudo');
+</script>
+
+</body>
+
+</html>

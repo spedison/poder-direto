@@ -1,0 +1,97 @@
+{{> header}}
+
+<body>
+
+{{> menu }}
+
+<main role="main">
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron" id="titulo">
+        <div class="container ">
+            <h1 class="display-7">Resultado do Envio</h1>
+        </div>
+    </div>
+
+    <form method="get" id="dadosDeConfiguracaoDeEnvio" name="dadosDeConfiguracaoDeEnvio" action="/">
+
+        <div class="container">
+            <!-- Example row of columns -->
+
+            {{#dados-envio}}
+            <div class="form-group">
+                <label for="nome">Nome / E-mail: </label>
+                <label class="form-control" name="nome" id="nome">{{#nome}}{{.}}{{/nome}} / {{#email}}{{.}}{{/email}}</label>
+            </div>
+
+
+            <div class="form-group">
+                <label for="smtp">smtp : porta : </label>
+                <label  class="form-control" name="smtp" id="smtp" >{{#smtp}}{{.}}{{/smtp}} : {{#smtpPort}}{{.}}{{/smtpPort}}</label>
+            </div>
+
+            <div class="form-group">
+                <label for="template">Template : </label>
+                <label  class="form-control" name="template" id="template" >{{#template}}{{.}}{{/template}}</label>
+            </div>
+
+            <div class="form-group">
+                <label for="orgao">Orgão : (Usará os dados da primeira autoridade para enviar email para ti)</label>
+                <label  class="form-control" name="orgao" id="orgao" >{{#orgao}}{{.}}{{/orgao}}</label>
+            </div>
+
+            <div class="form-group">
+                <label for="mensagem">Mensagem do Envio:</label>
+                {{#mensagem}}
+                    <label  class="form-control" name="mensagem" id="mensagem" >{{.}}</label>
+                {{/mensagem}}
+                {{^mensagem}}
+                    <label  class="form-control" name="mensagem" id="mensagem" >Enviado com sucesso.</label>
+                {{/mensagem}}
+            </div>
+
+            <br>
+
+            {{/dados-envio}}
+            <button type="submit" class="btn btn-primary">Voltar</button>
+
+        </div>
+    </form>
+
+    <hr>
+
+</main>
+
+{{> tail }}
+
+</body>
+
+<script>
+
+    function verificaSeGmail(){
+        var strEmail = $("#email").val();
+        var strGmail = "@gmail.com".toUpperCase();
+        return  ( Right(strEmail, strGmail.length).toUpperCase() == strGmail );
+    }
+
+    $( document ).ready(function() {
+
+        $("#email").focusout(function(){
+            // $(this).css("background-color", "#FFFFFF");
+
+            if (verificaSeGmail()){
+                $("#smtp").val( "smtp.gmail.com");
+                $("#smtpPort").val( "587");
+                $("#intervalo").val( "500");
+                $( "#usaSsl" ).prop( "checked", true );
+                $( "#comAutenticacao" ).prop( "checked", true );
+                $( "#tlsHabilitado" ).prop( "checked", false );
+                $( "#tlsRequerido" ).prop( "checked", false );
+            }
+
+
+        });
+        // Handler for .ready() called.
+    });
+</script>
+
+</html>

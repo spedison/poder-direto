@@ -1,0 +1,65 @@
+{{> header}}
+
+<body>
+
+{{> menu }}
+
+
+<main role="main">
+
+    <div class="jumbotron" id="titulo">
+        <div class="container ">
+            <h1 class="display-7">Lista de Templates</h1>
+        </div>
+    </div>
+
+
+        <div class="container">
+
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Data Criação</th>
+                    <th scope="col">Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#templates}}
+                <tr>
+                    <th scope="row">{{id}}</th>
+                    <td>{{nome}}</td>
+                    <td>{{dataCriacao}}</td>
+                    <td>
+                        <div class="dropdown">
+                            <a class="btn btn-primary" href="/templates/edit/{{nome}}"> Editar </a>
+
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Excluir
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/templates/remove/{{nome}}">Sim</a>
+                                <a class="dropdown-item" href="#">Não</a>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+                {{/templates}}
+                </tbody>
+            </table>
+
+        </div>
+    <hr>
+</main>
+
+{{> tail }}
+
+<script>
+    CKEDITOR.replace('conteudo');
+</script>
+
+</body>
+
+</html>
