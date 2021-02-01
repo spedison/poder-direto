@@ -33,17 +33,18 @@
     
 * #### Pastas
   
-    * No home do usuário poderá encontrar o diretório [[HOME_DIR]]/.config/poder-direto/*
-    * Nessa pasta estará pastas e templates para envio de e-mail
-    * Ao executar a primeira vez ele criará a pasta a baixa as listas de e-mail atualizadas.
+    * No home do usuário encontrará o diretório [[HOME_DIR]]/.config/poder-direto/*
+    * Nessa pasta estará templates e planilhas para envio de e-mail
+    * Ao executar a primeira vez ele criará a pasta a baixa da internet as listas de e-mail atualizadas. (Caso não exista)
+    * Caso precise atualizar a lista de e-maisl existente, click na opção de "Contados" -> "Forçar Atualização"
     
 ## Outros detalhes ...
   
-    # Para forçar a atualização basta clicar no menu da interface Contatos -> Forçar Atualização
-    # O template de exemplo se tem uma idéia de como  montar uma mensagem com as marcações
+    # O template de exemplo se tem uma idéia de como  montar uma mensagem com as marcações "{{...}}"
     # O teste de envio enviará somente 1 e-mail para você com o formato/mensagem indicada
-    # A simulação de envio, grava como o envio é feito (mensagens e destinatários) no arquivo de log - "poder-direto.log".
-    # O Gmail tem um limite de 500 e-mails por dia (sem o relay, com relay é 100), por esse motivo as listas com mais de 500 autoridades é fracionada em listas com tamanho máximo de 400. 
+    # A simulação de envio, grava como o envio é feito (mensagens e destinatários) no arquivo de log - "poder-direto.log", mas não manda mensagem para ninguém.
+    # O Gmail tem um limite de 500 e-mails por dia (com autenticação, sem autenticação é 100), por esse motivo as listas com mais de 500 autoridades é fracionada em listas com tamanho máximo de 400. (Caso da câmara dos deputados)
+    # A sua senha de e-mail é utilizada durante o envio de e-mails, mas não é guardada em nenhum arquivo de configuração.
 
 ## Bom trabalho.
       
