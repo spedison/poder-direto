@@ -24,7 +24,9 @@ public class ListaVariavelEmail extends LinkedList<VariavelEmail> {
         allFilled.add(new VariavelEmail("nomeCamelCase", "Nome completo do parlamentar - Mantendo somente as primeiras letras maiúsculas", "{{{nomeCamelCase}}}"));
         allFilled.add(new VariavelEmail("partido", "Sigla do partido", "{{partido}}"));
         allFilled.add(new VariavelEmail("sexo", "Sexo (M ou F)", "{{sexo}}"));
-        allFilled.add(new VariavelEmail("masculino", "Variável indica que é mascululino, Pode ser Verdadeiro ou Falso Se for M é verdadeiro, caso contrário falso", "{{##masculino}}...{{/masculino}}"));
+        allFilled.add(new VariavelEmail(
+                "masculino",
+                "Variável indica que é masculino, Valores verdadeiro ou falso ", "{{#masculino}}...{{/masculino}} {{^masculino}}...{{/masculino}}"));
         allFilled.add(new VariavelEmail("telefone", "Número do telefone do gabinete do parlamentar", "{{telefone}}"));
         allFilled.add(new VariavelEmail("tratamento", "Qual a forma de tratamento da autoridade/contato", "{{{tratamento}}}"));
         allFilled.add(new VariavelEmail("meuNome", "Nome de quem envia o e-mail", "{{{meuNome}}}"));
@@ -32,6 +34,7 @@ public class ListaVariavelEmail extends LinkedList<VariavelEmail> {
         allFilled.add(new VariavelEmail("meuEmail", "Email de quem envia essa mala direta", "{{meuEmail}}"));
         allFilled.add(new VariavelEmail("meuSmtp", "SMTP utilizado", "{{meuSmtp}}"));
 //        allFilled.add(new VariavelEmail("", "", "{{}}"));
+
 
 
         return allFilled;

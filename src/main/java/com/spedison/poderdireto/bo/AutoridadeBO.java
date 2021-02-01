@@ -91,59 +91,66 @@ public class AutoridadeBO {
                         rowIterator.next();
                     }
                 }
+                int linhaProcessada = 1;
+                try {
+                    while (rowIterator.hasNext()) {
 
-                while (rowIterator.hasNext()) {
-                    Row row = rowIterator.next();
-                    Iterator<Cell> cellIterator = row.cellIterator();
+                        linhaProcessada++;
 
-                    Autoridade autoridade = new Autoridade();
-                    while (cellIterator.hasNext()) {
-                        Cell cell = cellIterator.next();
-                        log.trace("Carregando Célula com conteúdo: " + cell.getCellType() + "Posicao :" + cell.getColumnIndex());
-                        switch (cell.getColumnIndex()) {
-                            case 0: // ID
-                                autoridade.setId((long) cell.getNumericCellValue());
-                                break;
-                            case 1: // Nome do Órgão ou Lista
-                                autoridade.setOrgao(cell.getStringCellValue());
-                                break;
-                            case 2: // Nome do Cidadão
-                                autoridade.setNome(cell.getStringCellValue());
-                                break;
-                            case 3: // Nome do Partido
-                                autoridade.setPartido(cell.getStringCellValue());
-                                break;
-                            case 4: // Se é titular ou não
-                                autoridade.setIsTitular(cell.getStringCellValue() == "T");
-                                break;
-                            case 5: // Estado que representa.
-                                autoridade.setEstado(cell.getStringCellValue());
-                                break;
-                            case 6: // Telefone
-                                autoridade.setTelefone(cell.getStringCellValue());
-                                break;
-                            case 7: // e-mail.
-                                autoridade.setEmail(cell.getStringCellValue());
-                                break;
-                            case 8: // Qual o pronome de tratamento que será utilizado.
-                                autoridade.setTratamento(cell.getStringCellValue());
-                                break;
-                            case 9: // Qual o Sexo (M ou F)
-                                autoridade.setSexo(cell.getStringCellValue().charAt(0));
-                                break;
+                        Row row = rowIterator.next();
+                        Iterator<Cell> cellIterator = row.cellIterator();
+
+                        Autoridade autoridade = new Autoridade();
+                        while (cellIterator.hasNext()) {
+                            Cell cell = cellIterator.next();
+                            log.trace("Carregando Célula com conteúdo: " + cell.getCellType() + "Posicao :" + cell.getColumnIndex());
+                            switch (cell.getColumnIndex()) {
+                                case 0: // ID
+                                    autoridade.setId((long) cell.getNumericCellValue());
+                                    break;
+                                case 1: // Nome do Órgão ou Lista
+                                    autoridade.setOrgao(cell.getStringCellValue());
+                                    break;
+                                case 2: // Nome do Cidadão
+                                    autoridade.setNome(cell.getStringCellValue());
+                                    break;
+                                case 3: // Nome do Partido
+                                    autoridade.setPartido(cell.getStringCellValue());
+                                    break;
+                                case 4: // Se é titular ou não
+                                    autoridade.setIsTitular(cell.getStringCellValue() == "T");
+                                    break;
+                                case 5: // Estado que representa.
+                                    autoridade.setEstado(cell.getStringCellValue());
+                                    break;
+                                case 6: // Telefone
+                                    autoridade.setTelefone(cell.getStringCellValue());
+                                    break;
+                                case 7: // e-mail.
+                                    autoridade.setEmail(cell.getStringCellValue());
+                                    break;
+                                case 8: // Qual o pronome de tratamento que será utilizado.
+                                    autoridade.setTratamento(cell.getStringCellValue());
+                                    break;
+                                case 9: // Qual o Sexo (M ou F)
+                                    autoridade.setSexo(cell.getStringCellValue().charAt(0));
+                                    break;
+                            }
                         }
+                        listaAutoridades.add(autoridade);
                     }
-                    listaAutoridades.add(autoridade);
+                } catch (IllegalStateException ile) {
+                    log.error("Erro ao processar planilha : " + file.toPath().toString() + " Na linha " + linhaProcessada, ile);
                 }
+                log.info("Fim da carga da planilha : " + file.toPath().toString());
                 arquivo.close();
 
             } catch (FileNotFoundException e) {
-                log.error("Arquivo não encontrado", e);
+                log.error("Arquivo não encontrado " + file.toPath().toString(), e);
             } catch (IOException e) {
-                log.error("Problemas de IO na leitura/escrita de arquivo ou rede", e);
+                log.error("Problemas de IO na leitura/escrita de arquivo ou rede. Arquivo " + file.toPath().toString(), e);
             }
         }
-
         return listaAutoridades;
     }
 

@@ -26,7 +26,7 @@ class ListaPlanilhasTest {
       File[] dw = appConfigurationBO.listaPlanilhas();
 
         Arrays.stream(dw).map(File::getName).forEach(log::info);
-        Assert.assertEquals(dw.length, 4);
+        Assert.assertEquals(dw.length, 5);
 
     }
 

@@ -42,7 +42,8 @@
 
             <div class="form-group">
                 <label for="smtpPort">Porta smtp *: </label>
-                <input type="number" class="form-control" name="smtpPort" id="smtpPort" placeholder="Número da porta SMTP"
+                <input type="number" class="form-control" name="smtpPort" id="smtpPort"
+                       placeholder="Número da porta SMTP"
                        value="{{#smtpPort}}{{.}}{{/smtpPort}}">
             </div>
 
@@ -72,7 +73,8 @@
 
             <div class="form-group">
                 <label for="intervalo">Intervalo usado durante o envio: (ms) </label>
-                <input type="number" class="form-control" name="intervalo" id="intervalo" placeholder="Tempo entre o envio e outro email (para não ser confundido com Span. Padrão 500ms (0,5 segundos)"
+                <input type="number" class="form-control" name="intervalo" id="intervalo"
+                       placeholder="Tempo entre o envio e outro email (para não ser confundido com Span. Padrão 500ms (0,5 segundos)"
                        value="{{#intervalo}}{{.}}{{/intervalo}}">
             </div>
 
@@ -82,7 +84,7 @@
 
             {{/dados-envio}}
             <button type="submit" class="btn btn-primary">Gravar</button>
-            <button type="reset" class="btn btn-primary">Cancelar</button>
+            <a class="btn btn-primary" href="/index">Cancelar</a>
 
         </div>
     </form>
@@ -97,30 +99,52 @@
 
 <script>
 
-    function verificaSeGmail(){
-        var strEmail = $("#email").val();
-        var strGmail = "@gmail.com".toUpperCase();
-        return  ( Right(strEmail, strGmail.length).toUpperCase() == strGmail );
+    function verificaMail(strEmail, extensao) {
+        var strComp = extensao.toUpperCase();
+        return (Right(strEmail, strComp.length).toUpperCase() == strComp);
     }
 
-    $( document ).ready(function() {
+    function verificaSeGmail() {
+        return verificaMail($("#email").val(), "@gmail.com");
+    }
 
-        $("#email").focusout(function(){
-            // $(this).css("background-color", "#FFFFFF");
+    function verificaSeTerra() {
+        return verificaMail($("#email").val(), "@terra.com.br");
+    }
 
-            if (verificaSeGmail()){
-                $("#smtp").val( "smtp.gmail.com");
-                $("#smtpPort").val( "465");
-                $("#intervalo").val( "500");
-                $( "#usaSsl" ).prop( "checked", true );
-                $( "#comAutenticacao" ).prop( "checked", true );
-                $( "#tlsHabilitado" ).prop( "checked", true );
-                $( "#tlsRequerido" ).prop( "checked", false );
+    function verificaSeYahooCom() {
+        return verificaMail($("#email").val(), "@yahoo.com") || verificaMail($("#email").val(), "@yahoo.com.br");
+    }
+
+    $(document).ready(function () {
+
+        $("#email").focusout(function () {
+            if (verificaSeGmail()) {
+                $("#smtp").val("smtp.gmail.com");
+                $("#smtpPort").val("465");
+                $("#intervalo").val("400");
+                $("#usaSsl").prop("checked", true);
+                $("#comAutenticacao").prop("checked", true);
+                $("#tlsHabilitado").prop("checked", true);
+                $("#tlsRequerido").prop("checked", false);
+            } else if (verificaSeYahooCom()) {
+                $("#smtp").val("smtp.mail.yahoo.com");
+                $("#smtpPort").val("465");
+                $("#intervalo").val("400");
+                $("#usaSsl").prop("checked", true);
+                $("#comAutenticacao").prop("checked", true);
+                $("#tlsHabilitado").prop("checked", true);
+                $("#tlsRequerido").prop("checked", false);
+            } else if (verificaSeTerra()) {
+                $("#smtp").val("smtp.terra.com.br");
+                $("#smtpPort").val("465");
+                $("#intervalo").val("400");
+                $("#usaSsl").prop("checked", true);
+                $("#comAutenticacao").prop("checked", true);
+                $("#tlsHabilitado").prop("checked", true);
+                $("#tlsRequerido").prop("checked", false);
             }
-
-
         });
-        // Handler for .ready() called.
     });
 </script>
 
